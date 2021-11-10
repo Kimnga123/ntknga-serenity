@@ -26,7 +26,7 @@ class DemoSteps {
 
     @And("Click the {string} Button")
     public void clickTheButton(String button) {
-        actor.attemptsTo(Click.on(demoPage.buttonNext))
+        actor.attemptsTo(Click.on(demoPage.getOptionByButton(button)))
     }
 
     @Then("Assert text {string} exists")
@@ -35,4 +35,15 @@ class DemoSteps {
                 Ensure.that(demoPage.getMessage.getText()).contains(text))
     }
 
+    @Then("Button {string} should be clicked")
+    public void buttonShouldBeClicked(String option) {
+        actor.attemptsTo(
+                Ensure.that(demoPage.getOptionByName1(option).getAttribute("aria-checked")).contains("true"))
+    }
+
+    @And("Button {string} should be not clicked")
+    public void buttonShouldBeNotClicked(String option) {
+        actor.attemptsTo(
+                Ensure.that(demoPage.getOptionByName1(option).getAttribute("aria-checked")).contains("false"))
+    }
 }
